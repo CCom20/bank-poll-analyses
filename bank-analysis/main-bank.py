@@ -8,10 +8,14 @@ def fiscal_months():
     print(len(total_months))
 
 def months_profitable():
-    
+    profit = [row[1] for rows[1] in csvreader if rows[1] > 0]
+    losses = [row[1] for rows[1] in csvreader if rows[1] < 0]
+    print(profit)
+    print(losses)
     
 with open(bankcsv_path, mode='r', newline='') as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',')
     csv_header = next(csvreader)
     
     fiscal_months()
+    months_profitable()
