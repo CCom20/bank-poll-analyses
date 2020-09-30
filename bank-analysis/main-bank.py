@@ -11,14 +11,6 @@ increase_month = ""
 decrease_month = ""
 net_change = []
 
-
-# def months_profitable():
-#     profit_list = []
-#     profit = [row[1] for row in csvreader if int(row[1]) > 0]
-#     profit_list.append(profit)
-#     #losses = [row for row[1] in csvfile if row[1] < 0]
-#     print(profit_list)
-#     #print(losses)
     
 with open(bankcsv_path, mode='r', newline='') as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',')
@@ -44,11 +36,11 @@ with open(bankcsv_path, mode='r', newline='') as csvfile:
 
     average = sum(net_change) / len(net_change)
 
-print(total_months,
-    total_profits,
-    greatest_increase,
-    greatest_decrease,
-    increase_month,
-    decrease_month,
-    net_change,
-    average)
+print("Financial Analysis")
+print("------------------------------")
+print(f"Total Months: {total_months}")
+print(f"Total: {total_profits}")
+print(f"Average Change: {average}")
+print(f"Greatest increase in profits: {increase_month} {greatest_increase}")
+print(f"Greatest decrease in profits: {decrease_month} {greatest_decrease}")
+print("------------------------------")
