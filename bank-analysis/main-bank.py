@@ -47,6 +47,4 @@ with open(bankcsv_path, mode='r', newline='') as csvfile:
 
     average = sum(net_change) / len(net_change)
 
-with open(analysis_path, mode='w') as textfile:
-    csvwriter = csv.writer(textfile)
-    csvwriter.writerow(['Financial','Analysis'])
+print_analysis()
