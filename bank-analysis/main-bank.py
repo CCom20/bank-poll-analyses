@@ -2,6 +2,17 @@ import os
 import csv
 
 bankcsv_path = os.path.join("Resources", "budget_data.csv")
+analysis_path = os.path.join("Output", "bank_analysis.txt")
+
+def print_analysis():
+    print("Financial Analysis"),
+    print("------------------------------"),
+    print(f"Total Months: {total_months}"),
+    print(f"Total: {total_profits}"),
+    print(f"Average Change: {average}"),
+    print(f"Greatest increase in profits: {increase_month} ${greatest_increase}"),
+    print(f"Greatest decrease in profits: {decrease_month} ${greatest_decrease}"),
+    print("------------------------------")
 
 total_months = 0
 total_profits = 0
@@ -36,11 +47,6 @@ with open(bankcsv_path, mode='r', newline='') as csvfile:
 
     average = sum(net_change) / len(net_change)
 
-print("Financial Analysis")
-print("------------------------------")
-print(f"Total Months: {total_months}")
-print(f"Total: {total_profits}")
-print(f"Average Change: {average}")
-print(f"Greatest increase in profits: {increase_month} {greatest_increase}")
-print(f"Greatest decrease in profits: {decrease_month} {greatest_decrease}")
-print("------------------------------")
+with open(analysis_path, mode='w') as textfile:
+    csvwriter = csv.writer(textfile)
+    csvwriter.writerow(['Financial','Analysis'])
