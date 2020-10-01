@@ -24,7 +24,7 @@ total_votes = 0
 winner_votes = 0
 candidate_votes = []
 names = []
-votes = {"Khan": [row for row[2] in csvreader if row[2] == "Khan"], 
+votes = {"Khan": [], 
     "Correy": [], 
     "Li": [], 
     "Tooley": []}
@@ -66,4 +66,4 @@ with open(polldata_path, mode='r', newline='') as polldata:
 
     print_results()
 
-with open(pollout_path, mode='w', newline='') as csvfile:
+# with open(pollout_path, mode='w', newline='') as csvfile:
