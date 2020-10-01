@@ -46,5 +46,14 @@ with open(bankcsv_path, mode='r', newline='') as csvfile:
             decrease_month = row[0]
 
     average = sum(net_change) / len(net_change)
+    print_analysis()
 
-print_analysis()
+with open(analysis_path, mode='w', newline='') as csvfile:
+    csvwriter = csv.writer(csvfile, delimiter=',')
+    csvwriter.writerow(["-----------------------"])
+    csvwriter.writerow(["Financial Analysis"])
+    csvwriter.writerow(["-----------------------"])
+    csvwriter.writerow([f"Total Months: {total_months}"])
+    csvwriter.writerow([f"Average Change: {average}"])
+    csvwriter.writerow([f"Greatest increase in profits: {increase_month} ${greatest_increase}"])
+    csvwriter.writerow([f"Greatest decrease in profits: {decrease_month} ${greatest_decrease}"])

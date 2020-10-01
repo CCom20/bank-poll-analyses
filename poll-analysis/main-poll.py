@@ -26,8 +26,7 @@ with open(polldata_path, mode='r', newline='') as polldata:
         if row[2] not in unique_candidates:
             unique_candidates.append(row[2])
         if row[2] == "Khan":
-            votes.append[0]
-            # votes_khan.append(row[0])
+            votes_khan.append(row[0])
             percent_votes_khan = round(100 * (len(votes_khan) / len(total_votes)), 2)
         elif row[2] == "Correy":
             votes_correy.append(row[0])
