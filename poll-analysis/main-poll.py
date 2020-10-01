@@ -21,9 +21,10 @@ def print_results():
 
 
 total_votes = 0
+winner_votes = 0
 candidate_votes = []
 names = []
-votes = {"Khan": [], 
+votes = {"Khan": [row for row[2] in csvreader if row[2] == "Khan"], 
     "Correy": [], 
     "Li": [], 
     "Tooley": []}
@@ -50,4 +51,19 @@ with open(polldata_path, mode='r', newline='') as polldata:
             votes["Tooley"].append(row[0])
             percent_votes_tooley = round(100 * (len(votes["Tooley"]) / total_votes), 3)
 
+    if len(votes["Khan"]) > winner_votes:
+        winner_votes = len(votes["Khan"])
+        winner = "Khan"
+    elif len(votes["Correy"]) > winner_votes:
+        winner_votes = len(votes["Correy"])
+        winner = "Correy"
+    elif len(votes["Li"]) > winner_votes:
+        winner_votes = len(votes["Li"])
+        winner = "Li"       
+    elif len(votes["Tooley"]) > winner_votes:
+        winner_votes = len(votes["Tooley"])
+        winner = "O'Tooley"
+
     print_results()
+
+with open(pollout_path, mode='w', newline='') as csvfile:
