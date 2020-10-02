@@ -1,10 +1,11 @@
 import os
 import csv
 
+# Set read and output paths
 polldata_path = os.path.join("Resources", "election_data.csv")
 pollout_path = os.path.join("analysis", "election_summary.txt")
 
-# Define the print function for Election Results
+# Define the print function for Election Results 
 def print_results():
     print("-------------------")
     print("Election Results")
@@ -12,26 +13,26 @@ def print_results():
     print(f"Total Votes: {total_votes}")
     print(f"Candidates Running: {names[0]}, {names[1]}, {names[2]}, {names[3]}")
     print("-------------------")
-    print(f"{names[0]}: {percent_votes_khan}% (Total Votes: {len(votes['Khan'])})")
-    print(f"{names[1]}: {percent_votes_correy}% (Total Votes: {len(votes['Correy'])})")
-    print(f"{names[2]}: {percent_votes_li}% (Total Votes: {len(votes['Li'])})")
-    print(f"{names[3]}: {percent_votes_tooley}% (Total Votes: {len(votes['Tooley'])})")
+    print(f"{names[0]}: {percent_votes_khan}% (Total Votes: {khan_votes})")
+    print(f"{names[1]}: {percent_votes_correy}% (Total Votes: {correy_votes})")
+    print(f"{names[2]}: {percent_votes_li}% (Total Votes: {li_votes})")
+    print(f"{names[3]}: {percent_votes_tooley}% (Total Votes: {tooley_votes})")
     print("-------------------")
     print(f"Winner: {winner}")
     print("-------------------")
 
 # Set Variables, Dictionaries, and Lists that we will be usings / appending to
+khan_votes = 0
+correy_votes = 0
+li_votes = 0
+tooley_votes = 0
 total_votes = 0
 winner_votes = 0
 candidate_votes = []
 names = []
-votes = {"Khan": [], 
-    "Correy": [], 
-    "Li": [], 
-    "Tooley": []}
 winner = ""
 
-# Read CSV and start For-Loop to go through, read and append as appropriate
+# Read CSV and start For-Loop to go through and calculate votes
 with open(polldata_path, mode='r', newline='') as polldata:
     csvreader = csv.reader(polldata, delimiter=',')
     polldata_header = next(csvreader)
@@ -43,35 +44,35 @@ with open(polldata_path, mode='r', newline='') as polldata:
         if row[2] not in names:
             names.append(row[2])
 
-        #Go through for-loop and append voter id to key-value in dictionary, then read the length of the list for an integer and calculate percentage of votes
+        #Go through for-loop and add to each candidates' total vote count
         if row[2] == "Khan":
-            votes["Khan"].append(row[0])
-            percent_votes_khan = round(100 * (len(votes["Khan"]) / total_votes), 3)
+            khan_votes += 1
         elif row[2] == "Correy":
-            votes["Correy"].append(row[0])
-            percent_votes_correy = round(100 * (len(votes["Correy"]) / total_votes), 3)
+            correy_votes += 1
         elif row[2] == "Li":
-            votes["Li"].append(row[0])
-            percent_votes_li = round(100 * (len(votes["Li"]) / total_votes), 3)
+            li_votes += 1
         elif row[2] == "O'Tooley":
-            votes["Tooley"].append(row[0])
-            percent_votes_tooley = round(100 * (len(votes["Tooley"]) / total_votes), 3)
+            tooley_votes += 1
+
+    #Calculate percentages for each candidate
+    percent_votes_khan = round(100 * (khan_votes/ total_votes), 3)
+    percent_votes_correy = round(100 * (correy_votes / total_votes), 3)
+    percent_votes_li = round(100 * (li_votes / total_votes), 3)
+    percent_votes_tooley = round(100 * (tooley_votes / total_votes), 3)
 
     #Check for winner by updating winner_votes and winner = ""
-    if len(votes["Khan"]) > winner_votes:
-        winner_votes = len(votes["Khan"])
+    if khan_votes > winner_votes:
+        winner_votes = khan_votes
         winner = "Khan"
-    elif len(votes["Correy"]) > winner_votes:
-        winner_votes = len(votes["Correy"])
+    elif correy_votes > winner_votes:
+        winner_votes = correy_votes
         winner = "Correy"
-    elif len(votes["Li"]) > winner_votes:
-        winner_votes = len(votes["Li"])
+    elif li_votes> winner_votes:
+        winner_votes = li_votes
         winner = "Li"       
-    elif len(votes["Tooley"]) > winner_votes:
-        winner_votes = len(votes["Tooley"])
+    elif tooley_votes > winner_votes:
+        winner_votes = tooley_votes
         winner = "O'Tooley"
-
-    print_results()
 
 # Export results as txt file
 with open(pollout_path, mode='w', newline='') as csvfile:
@@ -83,10 +84,12 @@ with open(pollout_path, mode='w', newline='') as csvfile:
     csvwriter.writerow([f"Total Votes: {total_votes}"])
     csvwriter.writerow([f"Candidates Running: {names[0]}, {names[1]}, {names[2]}, {names[3]}"])
     csvwriter.writerow(["-------------------"])
-    csvwriter.writerow([f"{names[0]}: {percent_votes_khan}% (Total Votes: {len(votes['Khan'])})"])
-    csvwriter.writerow([f"{names[1]}: {percent_votes_correy}% (Total Votes: {len(votes['Correy'])})"])
-    csvwriter.writerow([f"{names[2]}: {percent_votes_li}% (Total Votes: {len(votes['Li'])})"])
-    csvwriter.writerow([f"{names[3]}: {percent_votes_tooley}% (Total Votes: {len(votes['Tooley'])})"])
+    csvwriter.writerow([f"{names[0]}: {percent_votes_khan}% (Total Votes: {khan_votes})"])
+    csvwriter.writerow([f"{names[1]}: {percent_votes_correy}% (Total Votes: {correy_votes})"])
+    csvwriter.writerow([f"{names[2]}: {percent_votes_li}% (Total Votes: {li_votes})"])
+    csvwriter.writerow([f"{names[3]}: {percent_votes_tooley}% (Total Votes: {tooley_votes})"])
     csvwriter.writerow(["-------------------"])
     csvwriter.writerow([f"Winner: {winner}"])
     csvwriter.writerow(["-------------------"])
+
+    print_results()
