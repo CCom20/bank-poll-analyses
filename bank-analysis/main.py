@@ -15,7 +15,7 @@ def print_analysis():
     print(f"Greatest increase in profits: {increase_month} (${greatest_increase})"),
     print(f"Greatest decrease in profits: {decrease_month} (${greatest_decrease})"),
     print("------------------------------")
-
+    
 # Set and define variables for use when reading the document
 total_months = 0
 total_profits = 0
@@ -30,6 +30,9 @@ with open(bankcsv_path, mode='r', newline='') as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',')
     csv_header = next(csvreader)
     first_row = next(csvreader)
+    # total_profitable_months = [row for row in csvreader if int(row[1]) > 0]
+    # total_months_losses = [row for row in csvreader if int(row[1]) < 0]
+
 
     # Set total_profits to the first_row since we skipped the first month, 
     # but store that to calculate average between 1st and 2nd month:
@@ -55,7 +58,7 @@ with open(bankcsv_path, mode='r', newline='') as csvfile:
             decrease_month = row[0]
 
     # Find the average of the changes
-    average = round(sum(net_change) / len(net_change), 2)
+    average = round( sum(net_change) / len(net_change), 2)
 
 # Print analysis to txt and in terminal
 with open(analysis_path, mode='w', newline='') as csvfile:
