@@ -1,8 +1,8 @@
 import os
 import csv
 
-bankcsv_path = os.path.join("Resources", "budget_data.csv")
-analysis_path = os.path.join("Output", "bank_analysis.txt")
+bankcsv_path = os.path.join("resources", "budget_data.csv")
+analysis_path = os.path.join("analysis", "bank_analysis.txt")
 
 def print_analysis():
     print("Financial Analysis"),

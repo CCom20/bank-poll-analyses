@@ -2,7 +2,7 @@ import os
 import csv
 
 polldata_path = os.path.join("Resources", "election_data.csv")
-pollout_path = os.path.join("Output", "election_summary.txt")
+pollout_path = os.path.join("analysis", "election_summary.txt")
 
 # Define the print function for Election Results
 def print_results():
