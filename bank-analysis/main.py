@@ -10,10 +10,10 @@ def print_analysis():
     print("Financial Analysis"),
     print("------------------------------"),
     print(f"Total Months: {total_months}"),
-    print(f"Total: {total_profits}"),
-    print(f"Average Change: {average}"),
-    print(f"Greatest increase in profits: {increase_month} ${greatest_increase}"),
-    print(f"Greatest decrease in profits: {decrease_month} ${greatest_decrease}"),
+    print(f"Total Profits: ${total_profits}"),
+    print(f"Average Change: ${average}"),
+    print(f"Greatest increase in profits: {increase_month} (${greatest_increase})"),
+    print(f"Greatest decrease in profits: {decrease_month} (${greatest_decrease})"),
     print("------------------------------")
 
 # Set and define variables for use when reading the document
@@ -32,7 +32,7 @@ with open(bankcsv_path, mode='r', newline='') as csvfile:
     first_row = next(csvreader)
 
     # Set total_profits to the first_row since we skipped the first month, 
-    # but we need that to calculate average between 1st and 2nd month:
+    # but store that to calculate average between 1st and 2nd month:
     # increase total months to 1, and set previous month to first_row
     total_profits = int(first_row[1])
     total_months = 1
@@ -45,6 +45,8 @@ with open(bankcsv_path, mode='r', newline='') as csvfile:
         change = int(row[1]) - previous_month
         previous_month = int(row[1])
         net_change.append(change)
+
+        # Check for greatest increase and greatest decrease in changes
         if change > greatest_increase:
             greatest_increase = change
             increase_month = row[0]
@@ -52,15 +54,19 @@ with open(bankcsv_path, mode='r', newline='') as csvfile:
             greatest_decrease = change
             decrease_month = row[0]
 
-    average = sum(net_change) / len(net_change)
-    print_analysis()
+    # Find the average of the changes
+    average = round(sum(net_change) / len(net_change), 2)
 
+# Print analysis to txt and in terminal
 with open(analysis_path, mode='w', newline='') as csvfile:
     csvwriter = csv.writer(csvfile, delimiter=',')
     csvwriter.writerow(["-----------------------"])
     csvwriter.writerow(["Financial Analysis"])
     csvwriter.writerow(["-----------------------"])
+    csvwriter.writerow([f"Total Profits: ${total_profits}"])
     csvwriter.writerow([f"Total Months: {total_months}"])
-    csvwriter.writerow([f"Average Change: {average}"])
-    csvwriter.writerow([f"Greatest increase in profits: {increase_month} ${greatest_increase}"])
-    csvwriter.writerow([f"Greatest decrease in profits: {decrease_month} ${greatest_decrease}"])
+    csvwriter.writerow([f"Average Change: ${average}"])
+    csvwriter.writerow([f"Greatest increase in profits: {increase_month} (${greatest_increase})"])
+    csvwriter.writerow([f"Greatest decrease in profits: {decrease_month} (${greatest_decrease})"])
+
+    print_analysis()
