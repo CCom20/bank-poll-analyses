@@ -53,6 +53,8 @@ After this, the CSV writer simply exports a `.txt` file and runs a function to p
 
 The poll analysis looks at a small-town election and determines the total votes, votes for each candidate, as well as the percentage of votes for each candidate. Some code is added to automate more of the process, but it isn't necessary for this dataset. I included to practice writing for scalability. 
 
+**Folders and Files**
+
 1. poll-analysis 
     + analysis 
         + election_summary.txt
